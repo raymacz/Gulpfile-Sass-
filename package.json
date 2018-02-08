@@ -1,0 +1,30 @@
+{
+  "name": "framemacz",
+  "version": "0.0.1",
+  "description": "Accessible WordPress theme utilizing flex layouts and modern development practices.",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RayMacZ",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.2.5",
+    "bootstrap": "^4.0.0",
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-image": "^4.2.0",
+    "gulp-jshint": "^2.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^1.12.1",
+    "jquery": "^3.3.1",
+    "jquery.easing": "^1.4.1",
+    "jshint": "^2.9.5",
+    "localtunnel": "^1.8.3",
+    "ngrok": "^2.2.25",
+    "popper.js": "^1.12.9",
+    "tether": "^1.4.3"
+  }
+}
