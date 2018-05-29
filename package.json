@@ -23,7 +23,7 @@
     "jquery.easing": "^1.4.1",
     "jshint": "^2.9.5",
     "localtunnel": "^1.8.3",
-    "ngrok": "^2.2.25",
+    "ngrok": "^2.3.0",
     "popper.js": "^1.12.9",
     "tether": "^1.4.3"
   }
