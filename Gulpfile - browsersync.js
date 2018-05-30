@@ -26,8 +26,9 @@ var gulp = require('gulp'),
 
 	// Name of working theme folder
 	root = '../' + themename + '/',
-	rootz = root + 'assets/css/',
+	rootcss = root + 'assets/css/',
 	scss = root + 'assets/sass/',
+	rootsass = '../sass/',
 	js = root + 'assets/js/',
 	img = root + 'assets/images/',
 	languages = root + 'assets/languages/';
@@ -48,9 +49,9 @@ gulp.task('css', function() {
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
-	.pipe(sourcemaps.write(scss + 'maps'))
+	.pipe(sourcemaps.write('../../assets/css/maps/')) //directory hard to change
 	// .pipe(gulp.dest(root));
-	.pipe(gulp.dest(rootz));
+	.pipe(gulp.dest(rootcss));
 });
 
 // Optimize images through gulp-image
