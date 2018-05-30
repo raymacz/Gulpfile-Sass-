@@ -110,7 +110,7 @@ gulp.task('watch', function() {
 	}, function (err, browserSync) {
 	ngrok.connect({
 		proto: 'http',		
-	    authtoken: '7MXpQW1Hc9dnSyStagbuo_4SeninzmbhKYQ1ZguVbvw',
+	    authtoken: '************************************',
  	 //  configPath: 'C:\Users\admin\.ngrok2\ngrok.yml',
 		port:browserSync.options.get('port') 
 	}, function (err, url) {
