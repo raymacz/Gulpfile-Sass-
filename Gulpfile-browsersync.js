@@ -49,7 +49,7 @@ gulp.task('css', function() {
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
-	.pipe(sourcemaps.write('../../assets/css/maps/')) //directory hard to change
+	.pipe(sourcemaps.write('../../assets/css/maps/')) //directory hard to change!
 	// .pipe(gulp.dest(root));
 	.pipe(gulp.dest(rootcss));
 });
