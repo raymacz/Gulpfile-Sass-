@@ -1,3 +1,11 @@
+// 1. replace themename;
+// 2.  replace proxy
+// 3. update Name of working theme folder
+// 4. edit  	return gulp.src([scss + 'main.scss',scss + 'custom.scss'])
+// 5. edit .pipe(gulp.dest(rootcss))
+
+// 'use strict';
+
 
 /*************************/
 
@@ -5,7 +13,7 @@
 const os = require('os');
 console.log(os.platform() + os.arch());
 
-var themename = 'framemacz';
+var themename = 'auberge-child';
 
 var gulp = require('gulp'),
 	// Prepare and optimize code etc
@@ -24,12 +32,13 @@ var gulp = require('gulp'),
 
 	// Name of working theme folder
 	root = '../' + themename + '/',
-	scss = root + 'sass/',
-	js = root + 'js/',
-	img = root + 'images/',
-	languages = root + 'languages/';
+	rootcss = root + 'assets/css/',
+	scss = root + 'assets/sass/',
+	js = root + 'assets/js/',
+	img = root + 'assets/images/',
+	languages = root + 'assets/languages/';
 
-	vendor = root + 'vendor/';
+	vendor = root + 'assets/js/vendor/';
 
 	// Copy third party libraries from /node_modules into /vendor
 	gulp.task('vendor', function() {
@@ -69,7 +78,8 @@ var gulp = require('gulp'),
 
 // CSS via Sass and Autoprefixer
 gulp.task('css', function() {
-	return gulp.src(scss + '*.scss')
+	// return gulp.src(scss + '*.scss')  // if all files need to be converted
+	return gulp.src([scss + 'main.scss',scss + 'custom.scss']) // if only specific files need to be converted
 	.pipe(sourcemaps.init())
 	.pipe(sass({
 		outputStyle: 'expanded',
@@ -80,7 +90,7 @@ gulp.task('css', function() {
 		autoprefixer('last 2 versions', '> 1%')
 	]))
 	.pipe(sourcemaps.write(scss + 'maps'))
-	.pipe(gulp.dest(root))
+	.pipe(gulp.dest(rootcss)) // destination to write from scss to compiled css files
 	.pipe(browserSync.stream());
 });
 
@@ -102,30 +112,32 @@ gulp.task('javascript', function() {
 
 
 // Watch everything
-gulp.task('watch', function() {
+gulp.task('serve', function() {
 
 	browserSync.init({
 		open: 'external',
-		proxy: 'site3.net',
+		proxy: 'site1.net', // baseDir: "./"
 		watchTask: true,
-		port: 8080,
-             //  tunnel: 'framemacz'
+		port: 8080
+    // tunnel: 'auberge-child'
 				/*files: root+'*.css'  */
 	}, function (err, browserSync) {
-	ngrok.connect({
-		proto: 'http',
-	    authtoken: '************************************',
- 	 //  configPath: 'C:\Users\admin\.ngrok2\ngrok.yml',
-		port:browserSync.options.get('port')
-	}, function (err, url) {
-			// https://a4ede18d.ngrok.io/ -> 127.0.0.1:8080
-	   });
-   });
-  	gulp.watch([root + '**/*.css', root + '**/*.scss' ], ['css']);
+				ngrok.connect({
+					proto: 'http',
+				  authtoken: '7MXpQW1Hc9dnSyStagbuo_4SeninzmbhKYQ1ZguVbvw',
+			 	  // configPath: 'C:\Users\admin\.ngrok2\ngrok.yml',
+				  region: 'pa',
+					port:browserSync.options.get('port')
+				}, function (err, url) {
+						// https://a4ede18d.ngrok.io/ -> 127.0.0.1:8080
+				});
+ });
+
+  gulp.watch([root + '**/*.css', root + '**/*.scss' ], ['css']);
 	gulp.watch(js + '**/*.js', ['javascript']);
 	gulp.watch(img + 'RAW/**/*.{jpg,JPG,png}', ['images']);
 	gulp.watch(root + '**/*').on('change', browserSync.reload);
 });
 
 // Default task (runs at initiation: gulp --verbose)
-gulp.task('default', ['watch']);
+gulp.task('default', ['serve']);
