@@ -70,7 +70,6 @@ gulp.task('css', function() {
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
-	// .pipe(sourcemaps.write(scss + 'maps'))
 	.pipe(sourcemaps.write('../maps'))
 	.pipe(gulp.dest(rootcss)) // destination to write from scss to compiled css files
 	.pipe(browserSync.stream());
@@ -99,9 +98,6 @@ gulp.task('scripts', function() {
   // .pipe(gulp.dest(rootjs)) // temporarily removed
   .pipe(rename('main.min.js'))
   .pipe(uglify())
-  // .pipe(sourcemaps.write('../../assets/js/customjs'))
-  // .pipe(sourcemaps.write('../../../assets/js/maps'))
-  // .pipe(sourcemaps.write('../../../assets/sass/maps'))
   .pipe(sourcemaps.write('../../maps'))
   .pipe(gulp.dest(rootjs))
 });
