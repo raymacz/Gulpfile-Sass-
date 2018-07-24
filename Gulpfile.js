@@ -71,13 +71,13 @@ gulp.task('css', function() {
 		indentType: 'tab',
 		indentWidth: '1'
 	}).on('error', sass.logError))
-  .pipe(cleanCSS({compatibility: 'ie8'}))
-  .pipe(rename('main-style.min.css'))  //  .pipe(rename({  suffix: '.min'    }))
-  // .pipe(concat('main-style.min.css'))
-  // .pipe(gulp.dest(rootcss)) 
+     // .pipe(concat('main-style.min.css'))
+  // .pipe(gulp.dest(rootcss)
+  .pipe(rename('main-style.min.css'))  //  .pipe(rename({  suffix: '.min'    })) 
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
+	.pipe(cleanCSS({compatibility: 'ie8'}))
 	.pipe(sourcemaps.write('../maps'))
 	.pipe(gulp.dest(rootcss)) // destination to write from scss to compiled css files
 	.pipe(browserSync.stream());
