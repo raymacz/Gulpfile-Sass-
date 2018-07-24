@@ -13,7 +13,11 @@ NOTE: Sorry this JS file can't be created by atom's smart template. Just manuall
 			- node --inspect-brk ./node_modules/gulp/bin/gulp.js --verbose
 			- trace until you reach gulpfile.js file
 			  - https://www.screencast.com/t/b1jkQEZvYPUI  https://www.screencast.com/t/1UvxZG8djw
-			  - https://stackoverflow.com/questions/40033298/how-to-debug-a-gulp-task/51375041#51375041 */
+			  - https://stackoverflow.com/questions/40033298/how-to-debug-a-gulp-task/51375041#51375041
+              - https://stackoverflow.com/questions/49194978/including-bootstrap-js-with-gulp-causing-errors
+			  - https://gist.github.com/torgeir/8507130
+			  - https://gist.github.com/tmslnz/1d025baaa7557a2d994032aa88fb61b3
+        */
 
  'use strict';
 
@@ -42,6 +46,7 @@ var gulp = require('gulp'),
 	root = '../' + themename + '/',
 	rootcss = root + 'assets/css/',
 	scss = root + 'assets/sass/',
+  rootscss = scss + 'mycustom/',
   rootjs = root + 'assets/js/customjs/',
 	img = root + 'assets/img/',
 	languages = root + 'assets/languages/',
@@ -55,7 +60,8 @@ var gulp = require('gulp'),
 // CSS via Sass and Autoprefixer
 gulp.task('css', function() {
 	// return gulp.src(scss + '*.scss')  // if all files need to be converted
-	return gulp.src([scss + 'main.scss',scss + 'custom.scss']) // if only specific files need to be converted
+	// return gulp.src([scss + 'main.scss', scss + 'custom.scss']) // if only specific files need to be converted
+	 return gulp.src([rootscss + 'my_styles.scss']) // if only specific files need to be converted
   .pipe(plumber({
 		  errorHandler: notify.onError("Error: <%= error.message %>")
 		}))
@@ -65,8 +71,10 @@ gulp.task('css', function() {
 		indentType: 'tab',
 		indentWidth: '1'
 	}).on('error', sass.logError))
-  // .pipe(cleanCSS())
+  .pipe(cleanCSS({compatibility: 'ie8'}))
+  .pipe(rename('main-style.min.css'))  //  .pipe(rename({  suffix: '.min'    }))
   // .pipe(concat('main-style.min.css'))
+  // .pipe(gulp.dest(rootcss)) 
 	.pipe(postcss([
 		autoprefixer('last 2 versions', '> 1%')
 	]))
@@ -95,7 +103,7 @@ gulp.task('scripts', function() {
 		}))
   .pipe(sourcemaps.init())
   // .pipe(concat('main-concat.js')) // temporarily removed
-  // .pipe(gulp.dest(rootjs)) // temporarily removed
+  // .pipe(gulp.dest(rootjs)) // temporarily removed // destination must be in separate directory
   .pipe(rename('main.min.js'))
   .pipe(uglify())
   .pipe(sourcemaps.write('../../maps'))
